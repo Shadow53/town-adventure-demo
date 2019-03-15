@@ -1,1 +1,8 @@
 *.z8
+text-adventure.materials/Release
+text-adventure.inform/Index/*
+text-adventure.inform/Build/*
+text-adventure.inform/gameinfo.dbg
+text-adventure.inform/Metadata.iFiction
+text-adventure.inform/Release.blurb
+text-adventure.inform/manifest.plist
