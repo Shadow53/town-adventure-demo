@@ -1,14 +1,59 @@
 Combat And Breakable Containers by Michael Bryant begins here.
 
-Include Sizes by Michael Bryant.
+Chapter 1 - Weapons
 
-Section 1 - Attackable Things
+A weapon is a kind of thing.
+A weapon has a number called the maximum damage.
+The maximum damage of a weapon is usually 1.
 
-A person has a number called maximum hit points.
-A person has a number called current hit points.
-The maximum hit points of a person is usually 10.
-A person can be attackable. A person is usually not attackable.
-A person can be killable. A person is usually killable.
+A property-aggregation rule for a weapon equipped by the player:
+	add "equipped" to the tagline.
+
+The bare fists are a weapon. The maximum damage is 1.
+The bare fists are nowhere.
+
+Section 1 (for use with Sizes by Michael Bryant)
+
+The size of a weapon is usually medium.
+
+Chapter 2 - Armors
+
+An armor is a kind of thing.
+An armor has a number called the defense rating.
+The defense rating of an armor is usually 1.
+An armor is wearable. The plural of armor is armor.
+
+Section 1 (for use with Sizes by Michael Bryant)
+
+The size of an armor is usually medium.
+
+Chapter 3 - Attackable Things
+
+[Things are destructible because they generally are not attackable
+and, if it is attackable, it's usually because it's destructible]
+A thing has a number called maximum hit points.
+A thing has a number called current hit points.
+A thing can be attackable. A thing is usually not attackable.
+A thing can be destructible or indestructible.
+A thing is usually destructible.
+
+Default weapon relates various things to a weapon (called the default weapon).
+The verb to default-weapon (he default-weapons, they default-weapon,
+	he default-weaponed, it is default-weaponing) means the default weapon
+	relation.
+
+Definition: a thing is retaliatory if it default-weapons something or
+	it equips a weapon.
+
+The maximum hit points of a thing is usually 5.
+The maximum hit points of a container is usually 10.
+The maximum hit points of a person is usually 20.
+
+Definition: A container is breakable if it is destructible.
+
+Definition: A container is broken if its current hit points are less than 0.
+
+Definition: A person is killable if it is destructible.
 
 Definition: A person is dead if it is killable and its current hit points are
 	less than 0 or it is in the spirit-world.
@@ -16,21 +61,8 @@ Definition: A person is dead if it is killable and its current hit points are
 Definition: A person is defeated if it is not killable and its current hit points
 	are less than 0.
 
-The player is attackable. The player is killable.
-
-When play begins:
-	repeat with victim running through people:
-		now the current hit points of the victim is the maximum hit points of
-			the victim;
-
-A breakable container is a kind of container.
-A breakable container has a number called maximum hit points.
-A breakable container has a number called current hit points.
-The maximum hit points of a breakable container is usually 10.
-A breakable container is usually closed.
-A breakable container is usually locked.
-A breakable container is usually not lockable.
-A breakable container is usually opaque.
+The player is attackable. The player is destructible.
+The player default-weapons the bare fists.
 
 The do not mention closed not openable breakable containers rule is listed
 	after the mention closed openables rule in the property-aggregation rules.
@@ -54,15 +86,26 @@ A property-aggregation rule for a broken breakable container
 		remove "closed" from the tagline;
 	add "broken" to the tagline.
 
-Definition: A breakable container is broken if its current hit points are less
-	than 0.
-
 When play begins:
-	repeat with victim running through breakable containers:
+	repeat with victim running through things:
 		now the current hit points of the victim is the maximum hit points of
-			the victim.
+			the victim;
 
-Section 2 - Corpses
+Section 1 (for use with Human Beings by Michael Bryant)
+
+When play begins (this is the all humans have bare fists rule):
+	repeat with victim running through human beings:
+		if the victim does not default-weapon something:
+			now the victim default-weapons the bare fists.
+
+Section 2 (for use without Human Beings by Michael Bryant)
+
+When play begins (this is the all people have bare fists rule):
+	repeat with victim running through people:
+		if the victim does not default-weapon something:
+			the victim default-weapons bare fists.
+
+Chapter 4 - Corpses
 
 A body is a kind of container. A body is part of every person.
 Instead of touching a body: say "[The noun] is quite still."
@@ -111,7 +154,7 @@ Rule for printing the name of a body (called the body):
 	say "[printed name of the body]";
 	omit contents in listing.
 
-Section 3 - Diagnosing
+Chapter 5 - Diagnosing
 
 Diagnosing is an action applying to one visible thing. Understand
 	"diagnose [something]" as diagnosing.
@@ -129,25 +172,7 @@ Carry out diagnosing:
 	if the noun is a breakable container:
 		say "[The noun] has [current hit points of the noun] out of a possible [maximum hit points of the noun] hit points remaining."
 
-Section 4 - Weapons
-
-A weapon is a kind of thing.
-A weapon has a number called the maximum damage.
-The maximum damage of a weapon is usually 1.
-The size of a weapon is usually medium.
-
-A property-aggregation rule for a weapon equipped by the player:
-	add "equipped" to the tagline.
-
-Section 5 - Armors
-
-An armor is a kind of thing.
-An armor has a number called the defense rating.
-The defense rating of an armor is usually 1.
-An armor is wearable. The plural of armor is armor.
-The size of an armor is usually medium.
-
-Section 6 - Equipping
+Chapter 6 - Equipping
 
 Equipping relates one weapon (called the equipped weapon) to one person.
 
@@ -157,23 +182,32 @@ Understand "equip [something]" as equipping it.
 The verb to equip (he equips, they equip, he equipped, it is equipped) means
 the reversed equipping relation.
 
-Check an actor equipping:
-	if the noun is a weapon:
-		let the weapon size be the size of the noun;
-		let the actor size be the size of the actor;
-		if the noun is the equipped weapon of the actor:
-			if the actor is the player:
-				say "You already have [the noun] equipped.";
-			stop the action;
-		otherwise if actor equips something:
-			if the actor is the player:
-				say "You need to unequip [the noun] first.";
-			stop the action;
-		otherwise:
-			unless the actor size is greater than the weapon size:
-				if the actor is the player:
-					say "It's too large to equip.";
-				stop the action.
+Check an actor equipping (this is the only equip weapons and armor rule):
+	if the noun is not a weapon and the noun is not an armor:
+		stop the action.
+
+Check an actor equipping (this is the cannot equip equipped items rule):
+	if the noun is the equipped weapon of the actor:
+		if the actor is the player:
+			say "You already have [the noun] equipped.";
+		stop the action;
+
+Check an actor equipping
+(this is the cannot equip with something else equipped rule):
+	if actor equips something:
+		if the actor is the player:
+			say "You need to unequip [the noun] first.";
+		stop the action;
+
+Section 1 (for use with Sizes by Michael Bryant)
+
+Check an actor equipping (this is the equip the right size rule):
+	let the weapon size be the size of the noun;
+	let the actor size be the size of the actor;
+	unless the actor size is greater than the weapon size:
+		if the actor is the player:
+			say "It's too large to equip.";
+		stop the action.
 
 Carry out an actor equipping:
 	if the noun is a weapon:
@@ -186,7 +220,7 @@ Carry out an actor equipping:
 Unequipping it is an action applying to one carried thing.
 Understand "unequip [something]" as unequipping it.
 
-Check an actor unequipping:
+Check an actor unequipping (this is the cannot unequip non-equipped things rule):
 	if the noun is a weapon:
 		unless the actor equips the noun:
 			if the actor is the player:
@@ -203,7 +237,7 @@ Instead of wearing an armor when the player is wearing an armor
 (called the other armor):
 	say "You'll have to remove [the other armor] first."
 
-Section 7 - Attacking
+Chapter 7 - Attacking
 
 Understand the commands "attack" and "punch" and "destroy" and "kill" and
 "murder" and "hit" and "thump" and "break" and "smash" and "torture" and
@@ -218,23 +252,23 @@ Understand the commands "punch" and "destroy" and "kill" and "murder" and
 [This definition allows us to adaptively use the word "attack"]
 To attack (he attacks, they attack, he attacked, it is being attacked) is a verb.
 To run away (he runs away, they run away, he ran away, it is running away)
-    is a verb.
+	is a verb.
 
 The damaging action has a number called the damage inflicted.
-The damaging action has a text called the weapon damaged with.
+The damaging action has a weapon called the weapon damaged with.
 
 Setting action variables for damaging:
 	now the damage inflicted is one;
-	now the weapon damaged with is "bare fists";
 	if the actor equips a weapon:
-		let the maximum attack be the maximum damage of the equipped weapon
-		of the actor;
-		now the weapon damaged with is "[equipped weapon of the actor]";
-		now the damage inflicted is a random number between 1 and the maximum
-		attack;
+		now the weapon damaged with is the equipped weapon of the actor;
+	otherwise if the actor default-weapons a weapon:
+		now the weapon damaged with is the default weapon of the actor;
+	let the maximum attack be the maximum damage of the weapon damaged with;
+	now the damage inflicted is a random number between 1 and the maximum
+	attack;
 
 Check an actor damaging something (this is the cannot attack all things rule):
-	if the noun is not attackable and the noun is not a breakable container:
+	if the noun is not attackable:
 		say "Violence is not the answer to this one.";
 		stop the action.
 	
@@ -246,8 +280,8 @@ Check an actor damaging something (this is the cannot attack dead things rule):
 
 Check an actor damaging something (this is the cannot attack defeated things rule):
 	if the noun is defeated:
-		say "[regarding the noun]You have already defeated [them]; killing [them]
-			would do nothing.";
+		say "[The actor] [have] already defeated [regarding the noun][them];
+			killing [them] would do nothing.";
 		stop the action.
 
 Check an actor damaging something (this is the cannot attack broken things rule):
@@ -259,6 +293,13 @@ Check an actor damaging something (this is the cannot attack broken things rule)
 Check the player damaging the player (this is the cannot attack yourself rule):
 	say "Please don't do that; I rather like having you around.";
 	stop the action.
+
+Check an actor damaging something
+(this is the cannot attack without a default weapon rule):
+	if the actor does not equip a weapon:
+		if the actor does not default-weapon a weapon:
+			say "[The actor] [have] nothing to attack with!";
+			stop the action.
 
 Carry out an actor damaging something:
 	decrease the current hit points of the noun by the damage inflicted;
@@ -275,7 +316,7 @@ Carry out an actor damaging something:
 
 Report damaging a dead person (this is the death-report priority rule):
 	say "[We] [attack] with [our] [weapon damaged with], killing [the noun]!"
-        instead.
+		instead.
 
 Report damaging a defeated person
 (this is the defeat-report priority rule):
@@ -304,7 +345,7 @@ Report someone damaging the player
 
 Report someone damaging something (this is the standard report damaging rule):
 	say "[The actor] [attack] [the noun] with [regarding the actor][their]
-        [the weapon damaged with]." instead.
+		[the weapon damaged with]." instead.
 
 Before attacking a person (this is the automatically target enemies rule):
 	if the noun is not dead and the noun is not defeated:
@@ -316,7 +357,7 @@ Before attacking a person (this is the automatically target enemies rule):
 		now the right hand status line is "";
 	continue the action.
 
-Section 8 - NPCs Attacking the Player
+Chapter 8 - NPCs Attacking the Player
 
 Targeting relates various people to one person (called the target).
 
@@ -325,7 +366,7 @@ The verb to target means the targeting relation.
 Every turn (this is the NPCs attack their targets rule):
 	repeat with the actor running through people that are attackable:
 		if the actor is not dead and the actor is not defeated:
-			if the actor is targeting someone:
+			if the actor is targeting someone and the actor is retaliatory:
 				let the victim be the target of the actor;
 				if the victim is attackable:
 					if the victim is not dead:
@@ -342,11 +383,12 @@ Every turn (this is the NPCs attack their targets rule):
 
 After an actor damaging a person (called the victim):
 	if the victim is not the player and the victim is not targeting the actor:
-		let the new target be "[the actor]";
-		if the actor is the player:
-			now the new target is "[us]";
-		say "[The victim] sets [their] eyes on [the new target].";
-		now the victim is targeting the actor;
+		if the victim is retaliatory:
+			let the new target be "[the actor]";
+			if the actor is the player:
+				now the new target is "[us]";
+			say "[The victim] sets [their] eyes on [the new target].";
+			now the victim is targeting the actor;
 	continue the action.
 
 Combat And Breakable Containers ends here.

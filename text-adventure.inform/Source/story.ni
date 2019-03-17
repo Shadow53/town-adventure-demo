@@ -188,8 +188,8 @@ simple sheets, a sturdy mattress, a blanket, and a pillow. One window to the
 north looks over part of the town. A locked chest in the corner awaits any
 belongings you want to store inside it."
 
-The chest is a closed, locked, openable, lockable breakable container in
-the rented bedroom.
+The chest is a closed, locked, openable, lockable container in
+the rented bedroom. The chest is destructible.
 The room key unlocks the chest. The size of the chest is medium.
 The chest is fixed in place.
 
@@ -213,11 +213,11 @@ The Training Grounds are north of the town square. "Straw dummies line on side
 of the grounds while a few people practice their swordfighting on the other
 side."
 
-A person called the Training Dummy is here. The dummy is attackable.
+The Training Dummy is here. The dummy is attackable. The dummy is destructible.
 The dummy carries a tattered mess of straw. The maximum hit points is 10.
 The dummy is fixed in place.
 
-A person called Axel is here. Axel is attackable. Axel is not killable.
+A person called Axel is here. Axel is attackable. Axel is indestructible.
 Axel carries a wooden sword and leather armor. Axel equips the wooden sword.
 Axel wears the leather armor. The maximum hit points of Axel is 10.
 Axel is fixed in place.
@@ -241,7 +241,7 @@ Axel's Training ends cowardly when the location of the player is not the
 	location of Axel.
 
 When Axel's Training begins:
-	now the player is not killable.
+	now the player is indestructible.
 
 When Axel's Training ends:
 	now the current hit points of Axel is the maximum hit points of Axel;
@@ -249,7 +249,7 @@ When Axel's Training ends:
 		of the player;
 	now Axel is not targeting the player;
 	now the player is not targeting Axel;
-	now the player is killable.
+	now the player is destructible.
 
 When Axel's Training ends honorably:
 	let the way be the best route from the Town Square to the Armory;
