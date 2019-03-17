@@ -37,4 +37,4 @@ This video is for an older version of the game and so does not include some of
 the features found in the most recent version. Still, it's enough if you want
 to get an idea for what the game is like.
 
-<script id="asciicast-Ao1yc9xQ6B7uUWrGLrrg5JRHm" src="https://asciinema.org/a/Ao1yc9xQ6B7uUWrGLrrg5JRHm.js" async></script>
+[![asciicast](https://asciinema.org/a/Ao1yc9xQ6B7uUWrGLrrg5JRHm.svg)](https://asciinema.org/a/Ao1yc9xQ6B7uUWrGLrrg5JRHm)
