@@ -123,53 +123,49 @@ And other synonyms for wanting to cause damage to someone or something.
 
 [ The Inn ]
 
-The Inn is west of the town square. "It's hard to hear anything in the inn over
+The Inn is a region.
+
+The Dining Room of the Inn is west of the town square.
+"It's hard to hear anything in the inn over
 the sounds of drunk, raucous laughter and bards playing ambient music to keep
 spirits high. A wooden staircase runs up one wall to a second floor, where
 people can sleep in rooms rented to them by the barkeep."
 
 [ TODO: Add greeting text and ability to talk to barkeep. Also a nod when player enters room ]
-The barkeep is a man in the Inn. "A barkeep stands behind the counter,
+The barkeep is a man in the Dining Room of the Inn.
+"A barkeep stands behind the counter,
 [one of]pouring drinks[or]wiping up a spill[at random][first time]. He gives
 you a polite nod as you enter[only]."
 The description is "He notices you looking and, seeing you don't need anything,
 goes back to work."
 
 [ TODO: Add hurried greeting and ability to talk to - on break? ]
-The barmaid is a woman in the Inn. "A barmaid expertly navigates the scattered
+The barmaid is a woman in the Dining Room of the Inn.
+"A barmaid expertly navigates the scattered
 tables and avoids enthusiastically waving arms as she delivers drinks to
 waiting customers."
 
-The board of keys is scenery in the inn. The size of the board of keys is large.
+The board of keys is scenery in the Dining Room of the Inn.
+The size of the board of keys is large.
 On the board of keys is a thing called the room key.
 The worth of the room key is 0.50 gp. The size of the room key is tiny.
 Understand "key" and "the key" as the room key.
 Understand "key board" as the board of keys.
 
-The counter is scenery in the Inn. On the counter is a tankard of mead called
-a tankard.
+The counter is scenery in the Dining Room of the Inn.
+On the counter is a tankard of mead called a tankard.
 
-The message board is a reading material in the Inn. It is fixed in place.
+The message board is a reading material in the Dining Room of the Inn.
+It is fixed in place.
 The description of the message board is
 "[print of the message board]".
 The print of the message board is
 "ROOMS: [worth of the room key]".
 
-Before going east from the inn:
-	If the barkeep does not have the room key:
-		say "The barkeep stops you before you can leave. 'I'm going to need
-			you to return your key before you leave,' he tells you.";
-		stop the action.
-
-After going from the Inn:
-	If the barkeep has the room key:
-		Now the room key is on the board of keys;
-		Now the price of the room key is the worth of the room key;
-	continue the action.
-
 [ THE HALLWAY OF THE INN ]
 
-The wooden staircase is above the Inn and below the Hallway of the Inn.
+The wooden staircase is above the Dining Room of the  Inn and below the
+Hallway of the Inn.
 The staircase is an open door. The staircase is not openable.
 
 [The Hallway of the Inn is a room above the inn.]
@@ -194,6 +190,22 @@ The room key unlocks the chest. The size of the chest is medium.
 The chest is fixed in place.
 
 The bed is fixed in place in the rented bedroom.
+
+The Dining Room of the Inn, the Hallway of the Inn, and
+the Rented Bedroom are in the Inn.
+
+Before going to a room not in the Inn:
+	If the barkeep does not have the room key:
+		say "You need to return the room key before you leave.";
+		stop the action.
+
+After going to a room not in the Inn:
+	If the barkeep has the room key:
+		Now the room key is on the board of keys;
+		Now the price of the room key is the worth of the room key;
+		Now the room door is locked;
+		Now the chest is locked;
+	continue the action.
 
 [ The Armory ]
 
