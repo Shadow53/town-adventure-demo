@@ -91,7 +91,7 @@ Instead of buying something:
 	say "You pay [the price of the noun] and take [the noun].";
 	decrease the worth of the money by the price;
 	now the price of the noun is 0.00 gp;
-	try taking the noun;
+	try silently taking the noun;
 
 The can't steal things rule is listed before the cannot take large things rule in
 the before rulebook.
