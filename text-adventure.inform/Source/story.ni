@@ -195,7 +195,8 @@ The Dining Room of the Inn, the Hallway of the Inn, and
 the Rented Bedroom are in the Inn.
 
 Before going to a room not in the Inn:
-	If the barkeep does not have the room key:
+	If the barkeep does not have the room key and the room key is not
+	on the board of keys:
 		say "You need to return the room key before you leave.";
 		stop the action.
 
