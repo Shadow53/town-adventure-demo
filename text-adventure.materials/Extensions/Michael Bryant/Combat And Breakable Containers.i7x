@@ -8,11 +8,15 @@ A person has a number called maximum hit points.
 A person has a number called current hit points.
 The maximum hit points of a person is usually 10.
 A person can be attackable. A person is usually not attackable.
+A person can be killable. A person is usually killable.
 
-Definition: A person is dead if its current hit points are less than 0 or
-	it is in the spirit-world.
+Definition: A person is dead if it is killable and its current hit points are
+	less than 0 or it is in the spirit-world.
 
-The player is attackable.
+Definition: A person is defeated if it is not killable and its current hit points
+	are less than 0.
+
+The player is attackable. The player is killable.
 
 When play begins:
 	repeat with victim running through people:
@@ -201,34 +205,148 @@ Instead of wearing an armor when the player is wearing an armor
 
 Section 7 - Attacking
 
-Before an actor attacking something:
+Understand the commands "attack" and "punch" and "destroy" and "kill" and
+"murder" and "hit" and "thump" and "break" and "smash" and "torture" and
+"wreck" as something new. 
+
+Damaging is an action applying to one visible thing.
+Understand "attack [something]" as damaging.
+
+Understand the commands "punch" and "destroy" and "kill" and "murder" and
+"hit" and "thump" and "break" and "smash" and "torture" and "wreck" as "attack". 
+
+[This definition allows us to adaptively use the word "attack"]
+To attack (he attacks, they attack, he attacked, it is being attacked) is a verb.
+To run away (he runs away, they run away, he ran away, it is running away)
+    is a verb.
+
+The damaging action has a number called the damage inflicted.
+The damaging action has a text called the weapon damaged with.
+
+Setting action variables for damaging:
+	now the damage inflicted is one;
+	now the weapon damaged with is "bare fists";
+	if the actor equips a weapon:
+		let the maximum attack be the maximum damage of the equipped weapon
+		of the actor;
+		now the weapon damaged with is "[equipped weapon of the actor]";
+		now the damage inflicted is a random number between 1 and the maximum
+		attack;
+
+Check an actor damaging something (this is the cannot attack all things rule):
 	if the noun is not attackable and the noun is not a breakable container:
 		say "Violence is not the answer to this one.";
 		stop the action.
 	
-Instead of an actor attacking something:
-	let the damage inflicted be one;
-	let the weapon be "bare fists";
-	if the actor equips a weapon:
-		let the weapon be "[the equipped weapon of the actor]";
-		let the maximum attack be the maximum damage of the equipped weapon
-		of the actor;
-		now the damage inflicted is a random number between 1 and the maximum
-		attack;
+Check an actor damaging something (this is the cannot attack dead things rule):
+	if the noun is dead:
+		say "[regarding the noun][They] [are] already dead; hitting [them]
+			again will do nothing.";
+		stop the action.
+
+Check an actor damaging something (this is the cannot attack defeated things rule):
+	if the noun is defeated:
+		say "[regarding the noun]You have already defeated [them]; killing [them]
+			would do nothing.";
+		stop the action.
+
+Check an actor damaging something (this is the cannot attack broken things rule):
+	if the noun is broken:
+		say "[regarding the noun][They] [are] already broken and there are
+			better ways of getting your anger out.";
+		stop the action.
+
+Check the player damaging the player (this is the cannot attack yourself rule):
+	say "Please don't do that; I rather like having you around.";
+	stop the action.
+
+Carry out an actor damaging something:
 	decrease the current hit points of the noun by the damage inflicted;
-	say "[The actor] hit [the noun] with [the weapon]!";
 	if the noun is dead:
 		let the corpse be a random body which is part of the noun;
 		move the corpse to the location;
 		repeat with the item running through the things carried by the noun:
 			now the item is in the corpse;
 		move the noun to the spirit-world;
-		if the actor is the player:
-			say "You killed [the noun]!";
 	otherwise if the noun is broken:
-		say "[A list of things in the noun] fell out of the broken [noun]!";
 		repeat with item running through things in the noun:
 			move the item to the location of the player;
 			now the noun is nowhere.
+
+Report damaging a dead person (this is the death-report priority rule):
+	say "[We] [attack] with [our] [weapon damaged with], killing [the noun]!"
+        instead.
+
+Report damaging a defeated person
+(this is the defeat-report priority rule):
+	say "[We] [attack] with [our] [weapon damaged with]. [The noun] lies defeated
+		before [us]." instead.
+
+Report damaging someone (this is the normal damaging report rule):
+	say "[We] [attack] [the noun] with [our] [weapon damaged with]!".
+
+Report someone damaging the player when the player is dead
+(this is the player's-death priority rule):
+	say "[The actor] [attack] [us] with [their] [weapon damaged with],
+		finishing [us] off!";
+	end the story;
+	stop the action.
+
+Report someone damaging the player when the player is defeated
+(this is the player's-defeat priority rule):
+	say "[The actor] [attack] [us] with [their] [weapon damaged with].
+		[we] [are] knocked to the ground, no longer able to fight!"
+
+Report someone damaging the player
+(this is the standard report someone damaging the player rule):
+	say "[The actor] [attack] [us] with [regarding the actor][their]
+		[weapon damaged with]!" instead.
+
+Report someone damaging something (this is the standard report damaging rule):
+	say "[The actor] [attack] [the noun] with [regarding the actor][their]
+        [the weapon damaged with]." instead.
+
+Before attacking a person (this is the automatically target enemies rule):
+	if the noun is not dead and the noun is not defeated:
+		if the player is not targeting the noun:
+			now the player is targeting the noun;
+			now the right hand status line is "Fighting: [the noun]";
+	otherwise:
+		now the player is not targeting the noun;
+		now the right hand status line is "";
+	continue the action.
+
+Section 8 - NPCs Attacking the Player
+
+Targeting relates various people to one person (called the target).
+
+The verb to target means the targeting relation.
+
+Every turn (this is the NPCs attack their targets rule):
+	repeat with the actor running through people that are attackable:
+		if the actor is not dead and the actor is not defeated:
+			if the actor is targeting someone:
+				let the victim be the target of the actor;
+				if the victim is attackable:
+					if the victim is not dead:
+						if the location of the actor is not the location of the victim:
+							let the way be the best route from the location of the
+								actor to the location of the victim, using doors;
+							try the actor going the way;
+						otherwise:
+							try the actor damaging the victim;
+					otherwise:
+						now the actor does not target the victim;
+				otherwise:
+					now the actor does not target the victim.
+
+After an actor damaging a person (called the victim):
+	if the victim is not the player and the victim is not targeting the actor:
+		let the new target be "[the actor]";
+		if the actor is the player:
+			now the new target is "[us]";
+		say "[The victim] sets [their] eyes on [the new target].";
+		now the victim is targeting the actor;
+	continue the action.
 
 Combat And Breakable Containers ends here.

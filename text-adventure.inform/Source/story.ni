@@ -217,6 +217,11 @@ A person called the Training Dummy is here. The dummy is attackable.
 The dummy carries a tattered mess of straw. The maximum hit points is 10.
 The dummy is fixed in place.
 
+A person called Axel is here. Axel is attackable. Axel is not killable.
+Axel carries a wooden sword and leather armor. Axel equips the wooden sword.
+Axel wears the leather armor. The maximum hit points of Axel is 10.
+Axel is fixed in place.
+
 Rule for deciding the concealed possessions of the Training Dummy:
 	if the dummy is dead, no; otherwise yes.
 
@@ -227,3 +232,41 @@ After going from the training grounds:
 	Now the dummy contains a tattered mess of straw;
 	Now the dummy is in the training grounds;
 	continue the action.
+	
+Axel's Training is a recurring scene.
+Axel's Training begins when Axel targets the player.
+Axel's Training ends honorably when the player is defeated.
+Axel's Training ends proudly when Axel is defeated.
+Axel's Training ends cowardly when the location of the player is not the
+	location of Axel.
+
+When Axel's Training begins:
+	now the player is not killable.
+
+When Axel's Training ends:
+	now the current hit points of Axel is the maximum hit points of Axel;
+	now the current hit points of the player is the maximum hit points
+		of the player;
+	now Axel is not targeting the player;
+	now the player is not targeting Axel;
+	now the player is killable.
+
+When Axel's Training ends honorably:
+	let the way be the best route from the Town Square to the Armory;
+	say "Axel offers you a hand and helps you back onto your feet.";
+	say "'You fought well,' he tells you. 'You could[one of][or]
+		still[stopping] use some more practice, though. Or a better weapon
+		or armor. You can buy something from the armory [way] of town square.'"
+
+When Axel's Training ends proudly:
+	say "You and Axel both sit down on a nearby bench to catch your breath.
+		After some time, Axel stands and offers you a hand.";
+	say "'You hit hard,' he admits. 'And you can take a few hits yourself.
+		I'd say you'd got the makings of a fine warrior yet.' He laughs.
+		'Who knows, maybe someday you'll be the one training me, huh?'"
+
+When Axel's Training ends cowardly:
+	say "As [we] [run away] from the fight, [we] hear Axel mutter to himself
+		about people who 'can't take training seriously.'".
+
+Test axel with "e / buy leather / buy steel / equip sword / equip armor / w / n / attack axel".
