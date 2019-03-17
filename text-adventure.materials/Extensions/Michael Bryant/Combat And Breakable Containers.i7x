@@ -184,20 +184,27 @@ the reversed equipping relation.
 
 Check an actor equipping (this is the only equip weapons and armor rule):
 	if the noun is not a weapon and the noun is not an armor:
+		if the actor is the player:
+			say "That's not something you can equip.";
 		stop the action.
 
 Check an actor equipping (this is the cannot equip equipped items rule):
 	if the noun is the equipped weapon of the actor:
 		if the actor is the player:
 			say "You already have [the noun] equipped.";
-		stop the action;
+		stop the action.
 
 Check an actor equipping
 (this is the cannot equip with something else equipped rule):
-	if actor equips something:
+	if the noun is a weapon and the actor equips a weapon:
 		if the actor is the player:
-			say "You need to unequip [the noun] first.";
+			say "You need to unequip [the equipped weapon] first.";
 		stop the action;
+	otherwise if the noun is an armor and actor is wearing armor:
+		if the actor is the player:
+			let the worn armor be a random armor worn by the actor;
+			say "You need to take off [the worn armor] first.";
+		stop the action.
 
 Section 1 (for use with Sizes by Michael Bryant)
 
